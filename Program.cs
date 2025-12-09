@@ -6,5 +6,8 @@ using AdventOfCode;
 // DayTwo dayTwo = new DayTwo();
 // dayTwo.Run();
 
-DayThree dayThree = new DayThree();
-dayThree.Run();
+// DayThree dayThree = new DayThree();
+// dayThree.Run();
+
+DayFour dayFour = new DayFour();
+dayFour.Run();

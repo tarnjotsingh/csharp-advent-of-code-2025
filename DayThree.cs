@@ -29,7 +29,6 @@ public class DayThree() {
             numIndex = currentLrgIndex + 1;
             largestNum = 0;
         }
-
         return Int64.Parse(joltage);
     }
 
