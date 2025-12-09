@@ -1,5 +1,3 @@
-using System.Formats.Tar;
-
 namespace AdventOfCode;
 
 public class DayFour() {
@@ -21,36 +19,26 @@ public class DayFour() {
 
         // Traverse down the 2d array
         for(int i = 0; i < rollStack.Count; i++){
-            List<string> tmpStack = [];
             string crossIndicatedString = "";
-            int previousRow = i - 1, nextRow = i + 1;
             int pickableThisRow = 0, strLen = rollStack[0].Length;
 
-            if(previousRow >= 0) tmpStack.Add(rollStack[previousRow]);
-            tmpStack.Add(rollStack[i]);
-            if(nextRow < rollStack.Count) tmpStack.Add(rollStack[nextRow]);
-
-            // Built temp array, then process through that.
             // Traverse the tmpStack left to right.
             for(int j = 0; j < strLen; j++) {
                 int adjacentRolls = 0;
-                int rowToTraverse = (i == rollStack.Count - 1) ? 1 : tmpStack.Count / 3;
-                char currentChar = tmpStack[rowToTraverse][j];
+                char currentChar = rollStack[i][j];
 
                 // While traversing left to right, if we land on a paper roll @, then we check around it.
                 if(currentChar == '@') {
-                    List<int> rowPos = [rowToTraverse - 1, rowToTraverse, rowToTraverse + 1];
+                    List<int> rowPos = [i - 1, i, i + 1];
                     List<int> colPos = [j - 1, j, j + 1];
+
                     // If current pos is a paper roll, then check above and below and count adjacent vals.
                     // Loop to check row above and below.
-
                     foreach(int r in rowPos) {
-                        if(r >= 0 && r < tmpStack.Count) {
-                            var curLine = tmpStack[r];
+                        if(r >= 0 && r < rollStack.Count) {
                             foreach(int c in colPos) {
-                                if(c >= 0 && c < strLen) {
-                                    adjacentRolls += tmpStack[r][c] == '@' ? 1 : 0;
-                                }
+                                if(c >= 0 && c < strLen)
+                                    adjacentRolls += rollStack[r][c] == '@' ? 1 : 0;
                             }
                         }
                     }
@@ -62,9 +50,8 @@ public class DayFour() {
                 }
             }
 
-            // Console.Write(crossIndicatedString + " ");
-            // Console.Write(rollStack[i] + " ");
-            // Console.WriteLine(pickableThisRow);
+            Console.Write(crossIndicatedString + " ");
+            Console.WriteLine(pickableThisRow);
             pickablePaperRolls += pickableThisRow;
         }
 
